@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zenith Software | Premium Valorant Solutions</title>
+    <!-- Google Fonts & FontAwesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-dark: #030305;
+            --bg-card: rgba(8, 8, 12, 0.7);
+            --accent-purple: #a855f7;
+            --accent-cyan: #06b6d4;
+            --text-main: #f8f9fa;
+            --text-muted: rgba(248, 249, 250, 0.6);
+            --border-glow: rgba(168, 85, 247, 0.15);
+            --status-ud: #10b981;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            user-select: none;
+            scroll-behavior: smooth;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #222;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-purple);
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.01) 1px, transparent 0);
+            background-size: 24px 24px;
+        }
+
+        /* Glow Backgrounds */
+        .glow-effect {
+            position: absolute;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.12) 0%, rgba(0,0,0,0) 75%);
+            z-index: -1;
+            pointer-events: none;
+        }
+        #glow1 { top: -100px; left: -100px; }
+        #glow2 { top: 600px; right: -100px; }
+        #glow3 { bottom: -100px; left: 10%; }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 10%;
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.7rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(168, 85, 247, 0.3);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-main);
+            text-shadow: 0 0 8px rgba(255,255,255,0.2);
+        }
+
+        /* Navigation Right Controls */
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        /* Language Selector Styling */
+        .lang-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .lang-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: var(--text-main);
+            padding: 0.55rem 1.1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: 0.3s ease;
+        }
+
+        .lang-btn:hover {
+            border-color: var(--accent-cyan);
+            background: rgba(6, 182, 212, 0.05);
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.1);
+        }
+
+        .lang-content {
+            display: none;
+            position: absolute;
+            right: 0;
+            top: 115%;
+            background: #090a0f;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 8px;
+            min-width: 110px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            z-index: 101;
+            overflow: hidden;
+        }
+
+        .lang-content a {
+            color: var(--text-muted);
+            padding: 0.65rem 1rem;
+            text-decoration: none;
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: 0.2s;
+        }
+
+        .lang-content a:hover {
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-main);
+        }
+
+        .lang-dropdown.active .lang-content {
+            display: block;
+        }
+
+        .btn-discord {
+            background: linear-gradient(135deg, #5865F2, #4752C4);
+            color: white;
+            padding: 0.6rem 1.4rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 15px rgba(88, 101, 242, 0.3);
+            transition: 0.3s;
+        }
+
+        .btn-discord:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(88, 101, 242, 0.5);
+        }
+
+        /* Hero */
+        .hero {
+            text-align: center;
+            padding: 7rem 1rem 3rem 1rem;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #fff, #c084fc, #22d3ee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            max-width: 650px;
+            margin: 0 auto 3rem auto;
+            line-height: 1.6;
+        }
+
+        /* Statuses */
+        .status-container {
+            display: inline-flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.5rem;
+            background: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            margin-bottom: 5rem;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--status-ud);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--status-ud);
+        }
+
+        /* Products Grid */
+        .products-section {
+            padding: 2rem 10% 6rem 10%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 4rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .section-title span {
+            background: linear-gradient(to right, var(--accent-purple), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Premium Product Card */
+        .card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 18px;
+            padding: 2.2rem 1.8rem;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(168, 85, 247, 0.3);
+            box-shadow: 0 20px 40px rgba(168, 85, 247, 0.08);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.2rem;
+        }
+
+        .badge {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--status-ud);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            padding: 0.3rem 0.8rem;
+            border-radius: 30px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+
+        .card-header i {
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+        }
+
+        /* Product Image Container Styling */
+        .product-img-container {
+            width: 100%;
+            height: 160px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(0, 0, 0, 0.25);
+        }
+
+        .product-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+        }
+
+        .card:hover .product-img {
+            transform: scale(1.05);
+        }
+
+        .card-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .card-features li {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .card-features li i {
+            color: var(--accent-cyan);
+            font-size: 0.95rem;
+        }
+
+        /* Interactive Price Selector Section */
+        .pricing-section {
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 1.5rem;
+            margin-top: auto;
+        }
+
+        .selector-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        /* Modern Custom Select Dropdown & Solution for White Text/Background bug */
+        .price-select {
+            width: 100%;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            color: #fff;
+            padding: 0.6rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            outline: none;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-bottom: 1.5rem;
+        }
+
+        /* FIX: Dropdown options elements background/color setup to avoid invisible white text on white bg */
+        .price-select option {
+            background-color: #0d0e14;
+            color: #ffffff;
+            padding: 10px;
+        }
+
+        .price-select:focus {
+            border-color: var(--accent-purple);
+            background: rgba(168, 85, 247, 0.05);
+        }
+
+        .price-display {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 1.5rem;
+        }
+
+        .price-tag {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #fff;
+            text-shadow: 0 0 15px rgba(255,255,255,0.1);
+        }
+
+        .price-period {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .btn-buy {
+            background: linear-gradient(135deg, var(--accent-purple), #7b2cbf);
+            color: white;
+            text-decoration: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.9rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s;
+            border: none;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        .btn-buy:hover {
+            box-shadow: 0 5px 20px rgba(168, 85, 247, 0.4);
+            transform: scale(1.02);
+        }
+
+        /* Customer Reviews Section */
+        .reviews-section {
+            padding: 4rem 10% 6rem 10%;
+            background: rgba(255,255,255,0.01);
+            border-top: 1px solid rgba(255,255,255,0.02);
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* Discord Style Vouch Card */
+        .vouch-card {
+            background: #0f1015;
+            border: 1px solid rgba(255,255,255,0.03);
+            border-radius: 12px;
+            padding: 1.8rem;
+            position: relative;
+        }
+
+        .vouch-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .vouch-avatar {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--accent-purple), var(--accent-cyan));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: white;
+        }
+
+        .vouch-user-info h4 {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .vouch-badge {
+            background: rgba(88, 101, 242, 0.15);
+            color: #5865F2;
+            font-size: 0.7rem;
+            padding: 0.1rem 0.5rem;
+            border-radius: 4px;
+            font-weight: 700;
+        }
+
+        .vouch-rating {
+            color: #ffaa00;
+            font-size: 0.8rem;
+            margin-top: 0.2rem;
+        }
+
+        .vouch-content {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        /* FAQ Accordion Section */
+        .faq-section {
+            padding: 4rem 10% 6rem 10%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .faq-item {
+            background: rgba(255,255,255,0.01);
+            border: 1px solid rgba(255,255,255,0.03);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: 0.3s;
+        }
+
+        .faq-question:hover {
+            background: rgba(255,255,255,0.02);
+            color: var(--accent-cyan);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            padding: 0 1.2rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
+            color: rgba(255, 255, 255, 0.25);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive Layout */
+        @media (max-width: 768px) {
+            header { padding: 1rem 5%; }
+            .nav-links { display: none; }
+            .hero h1 { font-size: 2.8rem; }
+            .products-section { padding: 2rem 5% 4rem 5%; }
+            .status-container { flex-direction: column; gap: 0.8rem; border-radius: 15px; }
+            .nav-right { gap: 0.8rem; }
+            .lang-btn { padding: 0.5rem 0.8rem; font-size: 0.8rem; }
+            .btn-discord { padding: 0.5rem 1rem; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Glow Backdrops -->
+    <div class="glow-effect" id="glow1"></div>
+    <div class="glow-effect" id="glow2"></div>
+    <div class="glow-effect" id="glow3"></div>
+
+    <!-- Navigation Bar -->
+    <header>
+        <div class="logo">Zenith</div>
+        <ul class="nav-links">
+            <li><a href="#home" data-lang-key="navHome">Ana Sayfa</a></li>
+            <li><a href="#products" data-lang-key="navProducts">Ürünler</a></li>
+            <li><a href="#vouches" data-lang-key="navVouches">Yorumlar</a></li>
+            <li><a href="#faq" data-lang-key="navFaq">S.S.S</a></li>
+        </ul>
+        
+        <div class="nav-right">
+            <!-- Language Dropdown -->
+            <div class="lang-dropdown" id="langDropdown">
+                <button class="lang-btn" onclick="toggleLangMenu()">
+                    <i class="fa-solid fa-globe"></i> <span id="currentLang">TR</span> <i class="fa-solid fa-chevron-down" style="font-size: 0.7rem;"></i>
+                </button>
+                <div class="lang-content">
+                    <a href="javascript:void(0)" onclick="selectLanguage('TR')">Türkçe</a>
+                    <a href="javascript:void(0)" onclick="selectLanguage('EN')">English</a>
+                </div>
+            </div>
+
+            <!-- Discord Link -->
+            <a href="https://discord.gg/Gm5GASPNar" target="_blank" class="btn-discord">
+                <i class="fa-brands fa-discord"></i> Discord
+            </a>
+        </div>
+    </header>
+
+    <!-- Hero Header -->
+    <section class="hero" id="home">
+        <h1 data-lang-key="heroTitle">Sınırları Sen Belirle</h1>
+        <p data-lang-key="heroDesc">Zenith Software ile oyunlarda tam kontrolü eline al. Tamamen optimize edilmiş, kernel seviyesinde güvenlikli ve en üst düzey koruma algoritmalarına sahip premium yazılımlarımızla rakiplerine şans tanıma.</p>
+        
+        <div class="status-container">
+            <div class="status-item">
+                <span class="status-dot"></span>
+                <span>Emulator: <strong data-lang-key="statusUD">Sorunsuz</strong></span>
+            </div>
+            <div class="status-item">
+                <span class="status-dot"></span>
+                <span>Val-Private: <strong data-lang-key="statusUD">Sorunsuz</strong></span>
+            </div>
+            <div class="status-item">
+                <span class="status-dot"></span>
+                <span>HWID Spoofer: <strong data-lang-key="statusUD">Sorunsuz</strong></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section" id="products">
+        <h2 class="section-title" id="activeProductsTitle">Aktif <span>Yazılımlarımız</span></h2>
+        
+        <div class="products-grid">
+            
+            <!-- Product 1: Zenith Emulator -->
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <span class="badge">UNDETECTED</span>
+                        <i class="fa-solid fa-microchip"></i>
+                    </div>
+                    <h3>Zenith Emulator</h3>
+                    
+                    <!-- PRODUCT IMAGE ADDED -->
+                    <div class="product-img-container">
+                        <img src="https://i.imgur.com/Vb7NzzD.png" alt="Zenith Emulator" class="product-img">
+                    </div>
+
+                    <ul class="card-features">
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-lang-key="emFeat1">Valorant Emülasyon Algoritması</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-lang-key="emFeat2">Yeniden Başlatma Gerekmez (No Restart)</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-lang-key="emFeat3">Format / Windows Kurulumu Gerekmez</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-lang-key="emFeat4">152 BAN ve VAL 5 Ban Kaldırma</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-lang-key="emFeat5">Oyun Gerekmez (Anti-Cheat Olmadan Oyna!)</span></li>
+                        <li><i class="fa-solid fa-globe"></i> <span data-lang-key="emFeat6">Bölgeler: EU, NA, AP, KR, BR</span></li>
+                    </ul>
+                </div>
+                
+                <div class="pricing-section">
+                    <span class="selector-label" data-lang-key="selectLicense">Lisans Süresi Seçin</span>
+                    <select class="price-select" id="emu-select" onchange="updatePrice(this, 'emulator-price')">
+                        <!-- Populated dynamically in JS -->
+                    </select>
+                    
+                    <div class="price-display">
+                        <span class="price-tag" id="emulator-price">$10 <span class="price-period">/ 3 Gün</span></span>
+                    </div>
+                    
+                    <a href="https://discord.gg/Gm5GASPNar" target="_blank" class="btn-buy">
+                        <i class="fa-solid fa-cart-shopping"></i> <span data-lang-key="purchaseBtn">Satın Al / Detaylar</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Product 2: Val-Private -->
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <span class="badge">UNDETECTED</span>
+                        <i class="fa-solid fa-user-shield"></i>
+                    </div>
+                    <h3>Val-Private</h3>
+                    
+                    <!-- PRODUCT IMAGE ADDED -->
+                    <div class="product-img-container">
+                        <img src="https://i.imgur.com/8AbtcIs.png" alt="Val-Private Cheat" class="product-img">
+                    </div>
+
+                    <ul class="card-features">
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-lang-key="vpFeat1">Tamamen Özel & Kişiselleştirilmiş Yapı</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-lang-key="vpFeat2">Çok Düşük Kullanıcı Havuzu (Sınırlı Slot)</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-lang-key="vpFeat3">İnanılmaz Akıcı & Doğal Aimbot</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-lang-key="vpFeat4">Gelişmiş Esp & Radar Arayüzü</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-lang-key="vpFeat5">Kernel Seviyesinde Görünmez Sürücü</span></li>
+                    </ul>
+                </div>
+                
+                <div class="pricing-section">
+                    <span class="selector-label" data-lang-key="selectLicense">Lisans Süresi Seçin</span>
+                    <select class="price-select" id="private-select" onchange="updatePrice(this, 'private-price')">
+                        <!-- Populated dynamically -->
+                    </select>
+                    
+                    <div class="price-display">
+                        <span class="price-tag" id="private-price">$7 <span class="price-period">/ Günlük</span></span>
+                    </div>
+                    
+                    <a href="https://discord.gg/Gm5GASPNar" target="_blank" class="btn-buy">
+                        <i class="fa-solid fa-cart-shopping"></i> <span data-lang-key="purchaseBtn">Satın Al / Detaylar</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Product 3: HWID Spoofer -->
+            <div class="card">
+                <div>
+                    <div class="card-header">
+                        <span class="badge">UNDETECTED</span>
+                        <i class="fa-solid fa-arrows-spin"></i>
+                    </div>
+                    <h3>HWID Spoofer</h3>
+                    
+                    <!-- PRODUCT IMAGE ADDED -->
+                    <div class="product-img-container">
+                        <img src="https://i.imgur.com/ZHBi2Lb.png" alt="HWID Spoofer" class="product-img">
+                    </div>
+
+                    <ul class="card-features">
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-lang-key="spFeat1">Temiz İz Bırakma (Tüm kayıt loglarını siler)</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-lang-key="spFeat2">Tek Tıkla Donanım Değiştirme (Spoof)</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-lang-key="spFeat3">Tüm Anakartları Destekler (AMI, Insyde, vb.)</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-lang-key="spFeat4">TPM, Secure Boot ve EFI Bypass</span></li>
+                        <li><i class="fa-solid fa-circle-check"></i> <span data-lang-key="spFeat5">Kalıcı Ban Kaldırma Çözümü</span></li>
+                    </ul>
+                </div>
+                
+                <div class="pricing-section">
+                    <span class="selector-label" data-lang-key="selectLicense">Lisans Süresi Seçin</span>
+                    <select class="price-select" id="spoofer-select" onchange="updatePrice(this, 'spoofer-price')">
+                        <!-- Populated dynamically -->
+                    </select>
+                    
+                    <div class="price-display">
+                        <span class="price-tag" id="spoofer-price">$5 <span class="price-period">/ Günlük</span></span>
+                    </div>
+                    
+                    <a href="https://discord.gg/Gm5GASPNar" target="_blank" class="btn-buy">
+                        <i class="fa-solid fa-cart-shopping"></i> <span data-lang-key="purchaseBtn">Satın Al / Detaylar</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Customer Satisfaction (Vouches) Section -->
+    <section class="reviews-section" id="vouches">
+        <h2 class="section-title" id="satisfactionTitle">Müşteri <span>Memnuniyeti</span></h2>
+        
+        <div class="reviews-grid">
+            
+            <!-- Vouch 1 -->
+            <div class="vouch-card">
+                <div class="vouch-header">
+                    <div class="vouch-avatar">E</div>
+                    <div class="vouch-user-info">
+                        <h4>efe <span class="vouch-badge">Customer</span></h4>
+                        <div class="vouch-rating">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <p class="vouch-content">+Rep Good Emulator</p>
+            </div>
+
+            <!-- Vouch 2 -->
+            <div class="vouch-card">
+                <div class="vouch-header">
+                    <div class="vouch-avatar">K</div>
+                    <div class="vouch-user-info">
+                        <h4>Kaan <span class="vouch-badge">Customer</span></h4>
+                        <div class="vouch-rating">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <p class="vouch-content" id="vouch2Text">+rep spoofer bypassed val 5 on gigabyte mb first try instantly recommended!</p>
+            </div>
+
+            <!-- Vouch 3 -->
+            <div class="vouch-card">
+                <div class="vouch-header">
+                    <div class="vouch-avatar" style="background: linear-gradient(45deg, #06b6d4, #3b82f6);">X</div>
+                    <div class="vouch-user-info">
+                        <h4>Xenon <span class="vouch-badge">V.I.P</span></h4>
+                        <div class="vouch-rating">
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+                <p class="vouch-content" id="vouch3Text">Private build is super clean. Playing on high ranks for 3 weeks undetected. Fast support delivery also.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section" id="faq">
+        <h2 class="section-title" id="faqTitle">Sıkça Sorulan <span>Sorular</span></h2>
+        
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-lang-key="faqQ1">Teslimat süreci nasıl çalışır?</span>
+                    <i class="fa-solid fa-plus"></i>
+                </div>
+                <div class="faq-answer">
+                    <p data-lang-key="faqA1">Başarılı bir satın alımın ardından, lisans anahtarınız ve kurulum rehberiniz Discord sunucumuz üzerinden anında ve otomatik olarak teslim edilir.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-lang-key="faqQ2">Format veya BIOS güncellemesi gerekir mi?</span>
+                    <i class="fa-solid fa-plus"></i>
+                </div>
+                <div class="faq-answer">
+                    <p data-lang-key="faqA2">Zenith Emulator için kesinlikle yeniden başlatma veya format gerekmez. HWID Spoofer için tek tıkla işlem yapılır, anakartınıza göre ufak gereksinimler değişebilir.</p>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span data-lang-key="faqQ3">Hangi ödeme yöntemleri destekleniyor?</span>
+                    <i class="fa-solid fa-plus"></i>
+                </div>
+                <div class="faq-answer">
+                    <p data-lang-key="faqA3">Kredi/Banka Kartı, Kripto Paralar, EFT/Havale, Papara ve Discord sunucumuzda yer alan diğer yerel ödeme yöntemlerini destekliyoruz.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer data-lang-key="footerText">
+        &copy; 2026 Zenith Software. Tüm hakları saklıdır. Bu site tamamen güvenlik testleri ve eğitim simülasyonları amacıyla tasarlanmıştır.
+    </footer>
+
+    <!-- JavaScript logic for Languages, Dynamic Pricing and FAQ Accordion -->
+    <script>
+        // Language Database
+        const translations = {
+            TR: {
+                navHome: "Ana Sayfa",
+                navProducts: "Ürünler",
+                navVouches: "Yorumlar",
+                navFaq: "S.S.S",
+                heroTitle: "Sınırları Sen Belirle",
+                heroDesc: "Zenith Software ile oyunlarda tam kontrolü eline al. Tamamen optimize edilmiş, kernel seviyesinde güvenlikli ve en üst düzey koruma algoritmalarına sahip premium yazılımlarımızla rakiplerine şans tanıma.",
+                statusUD: "Sorunsuz",
+                selectLicense: "Lisans Süresi Seçin",
+                purchaseBtn: "Satın Al / Detaylar",
+                
+                // Active Products & Titles
+                activeProductsHtml: "Aktif <span>Yazılımlarımız</span>",
+                satisfactionHtml: "Müşteri <span>Memnuniyeti</span>",
+                faqHtml: "Sıkça Sorulan <span>Sorular</span>",
+
+                // Card features
+                emFeat1: "Valorant Emülasyon Algoritması",
+                emFeat2: "Yeniden Başlatma Gerekmez (No Restart)",
+                emFeat3: "Format / Windows Kurulumu Gerekmez",
+                emFeat4: "152 BAN ve VAL 5 Ban Kaldırma",
+                emFeat5: "Oyun Gerekmez (Anti-Cheat Olmadan Oyna!)",
+                emFeat6: "Bölgeler: EU, NA, AP, KR, BR",
+
+                vpFeat1: "Tamamen Özel & Kişiselleştirilmiş Yapı",
+                vpFeat2: "Çok Düşük Kullanıcı Havuzu (Sınırlı Slot)",
+                vpFeat3: "İnanılmaz Akıcı & Doğal Aimbot",
+                vpFeat4: "Gelişmiş Esp & Radar Arayüzü",
+                vpFeat5: "Kernel Seviyesinde Görünmez Sürücü",
+
+                spFeat1: "Temiz İz Bırakma (Tüm kayıt loglarını siler)",
+                spFeat2: "Tek Tıkla Donanım Değiştirme (Spoof)",
+                spFeat3: "Tüm Anakartları Destekler (AMI, Insyde, vb.)",
+                spFeat4: "TPM, Secure Boot ve EFI Bypass",
+                spFeat5: "Kalıcı Ban Kaldırma Çözümü",
+
+                // FAQ Content
+                faqQ1: "Teslimat süreci nasıl çalışır?",
+                faqA1: "Başarılı bir satın alımın ardından, lisans anahtarınız ve kurulum rehberiniz Discord sunucumuz üzerinden anında ve otomatik olarak teslim edilir.",
+                faqQ2: "Format veya BIOS güncellemesi gerekir mi?",
+                faqA2: "Zenith Emulator için kesinlikle yeniden başlatma veya format gerekmez. HWID Spoofer için tek tıkla işlem yapılır, anakartınıza göre ufak gereksinimler değişebilir.",
+                faqQ3: "Hangi ödeme yöntemleri destekleniyor?",
+                faqA3: "Kredi/Banka Kartı, Kripto Paralar, EFT/Havale, Papara ve Discord sunucumuzda yer alan diğer yerel ödeme yöntemlerini destekliyoruz.",
+                
+                footerText: "© 2026 Zenith Software. Tüm hakları saklıdır. Bu site tamamen güvenlik testleri ve eğitim simülasyonları amacıyla tasarlanmıştır.",
+
+                // Dropdown Periods translation labels
+                periods: {
+                    d3: "3 Günlük Key",
+                    w1: "1 Haftalık Key",
+                    m1: "1 Aylık",
+                    lf: "Sınırsız (Lifetime)",
+                    d1: "1 Günlük",
+                    w1_simple: "Haftalık",
+                    m1_simple: "Aylık"
+                },
+                periodSuffix: {
+                    d3: "/ 3 Gün",
+                    w1: "/ Haftalık",
+                    m1: "/ Aylık",
+                    lf: "/ Sınırsız",
+                    d1: "/ Günlük"
+                }
+            },
+            EN: {
+                navHome: "Home",
+                navProducts: "Products",
+                navVouches: "Vouches",
+                navFaq: "F.A.Q",
+                heroTitle: "Unleash the Zenith Power",
+                heroDesc: "Premium, secure, and kernel-level solutions designed to optimize your gaming performance. No performance drops, ultimate protection, and constant development.",
+                statusUD: "Undetected",
+                selectLicense: "Select License Duration",
+                purchaseBtn: "Purchase / Buy",
+
+                activeProductsHtml: "Active <span>Software</span>",
+                satisfactionHtml: "Customer <span>Satisfaction</span>",
+                faqHtml: "Frequently Asked <span>Questions</span>",
+
+                emFeat1: "Valorant Emulation Algorithm",
+                emFeat2: "No PC Restart Needing",
+                emFeat3: "No Windows Reinstallation Needed",
+                emFeat4: "Bypasses 152 BAN & VAL 5 Ban",
+                emFeat5: "No Game Required (Play without Anti-Cheat!)",
+                emFeat6: "Regions: EU, NA, AP, KR, BR",
+
+                vpFeat1: "Fully Private & Customized Build",
+                vpFeat2: "Extremely Low User Pool (Slots Limited)",
+                vpFeat3: "Super Smooth & Humanized Aimbot",
+                vpFeat4: "Advanced Esp & Radar HUD",
+                vpFeat5: "Kernel-Level Invisible Driver",
+
+                spFeat1: "Clean Trace (Removes all registry logs)",
+                spFeat2: "One-Click Hardware Spoofing",
+                spFeat3: "Supports all Motherboards (AMI, Insyde, etc.)",
+                spFeat4: "TPM, Secure Boot and EFI Bypass",
+                spFeat5: "Permanent Ban Clearance Solution",
+
+                faqQ1: "How does delivery work?",
+                faqA1: "After a successful purchase, your license key and installation guide are delivered instantly and automatically via our Discord server.",
+                faqQ2: "Is a Windows reinstall or bios update needed?",
+                faqA2: "No restart and no Windows reinstallations are required for Zenith Emulator. For the HWID Spoofer, the process is fully automated with one click clean trace, though motherboard requirements may vary slightly.",
+                faqQ3: "What payment methods are supported?",
+                faqA3: "We accept Credit/Debit Cards, Cryptocurrencies, Local Bank Transfer, and other popular localized payment processors inside our Discord channel.",
+
+                footerText: "© 2026 Zenith Software. All rights reserved. Designed for premium protection testing and educational simulation.",
+
+                periods: {
+                    d3: "3 Day Key",
+                    w1: "1 Week Key",
+                    m1: "1 Month",
+                    lf: "Lifetime",
+                    d1: "1 Day",
+                    w1_simple: "Weekly",
+                    m1_simple: "Monthly"
+                },
+                periodSuffix: {
+                    d3: "/ 3 Days",
+                    w1: "/ Weekly",
+                    m1: "/ Monthly",
+                    lf: "/ Lifetime",
+                    d1: "/ Daily"
+                }
+            }
+        };
+
+        let currentLang = 'TR';
+
+        // Initialize Select Dropdowns based on active language
+        function populateDropdowns() {
+            const langData = translations[currentLang];
+            
+            // Emulator Dropdown
+            const emuSelect = document.getElementById('emu-select');
+            emuSelect.innerHTML = `
+                <option value="$10" data-period="${langData.periodSuffix.d3}">${langData.periods.d3} - $10</option>
+                <option value="$60" data-period="${langData.periodSuffix.w1}">${langData.periods.w1} - $60</option>
+                <option value="$50" data-period="${langData.periodSuffix.m1}">${langData.periods.m1} - $50</option>
+                <option value="$100" data-period="${langData.periodSuffix.lf}">${langData.periods.lf} - $100</option>
+            `;
+
+            // Private Dropdown
+            const privateSelect = document.getElementById('private-select');
+            privateSelect.innerHTML = `
+                <option value="$7" data-period="${langData.periodSuffix.d1}">${langData.periods.d1} - $7</option>
+                <option value="$15" data-period="${langData.periodSuffix.d3}">${langData.periods.d3} - $15</option>
+                <option value="$30" data-period="${langData.periodSuffix.w1_simple}">${langData.periods.w1_simple} - $30</option>
+                <option value="$55" data-period="${langData.periodSuffix.m1_simple}">${langData.periods.m1_simple} - $55</option>
+                <option value="$75" data-period="${langData.periodSuffix.lf}">${langData.periods.lf} - $75</option>
+            `;
+
+            // Spoofer Dropdown
+            const spooferSelect = document.getElementById('spoofer-select');
+            spooferSelect.innerHTML = `
+                <option value="$5" data-period="${langData.periodSuffix.d1}">${langData.periods.d1} - $5</option>
+                <option value="$15" data-period="${langData.periodSuffix.w1_simple}">${langData.periods.w1_simple} - $15</option>
+                <option value="$20" data-period="${langData.periodSuffix.m1_simple}">${langData.periods.m1_simple} - $20</option>
+                <option value="$30" data-period="${langData.periodSuffix.lf}">${langData.periods.lf} - $30</option>
+            `;
+
+            // Trigger visual update for prices
+            updatePrice(emuSelect, 'emulator-price');
+            updatePrice(privateSelect, 'private-price');
+            updatePrice(spooferSelect, 'spoofer-price');
+        }
+
+        // Dropdown Menu Toggle
+        function toggleLangMenu() {
+            document.getElementById('langDropdown').classList.toggle('active');
+        }
+
+        // Switch Language Action
+        function selectLanguage(lang) {
+            currentLang = lang;
+            document.getElementById('currentLang').innerText = lang;
+            document.getElementById('langDropdown').classList.remove('active');
+
+            // Translate text fields
+            const elementsToTranslate = document.querySelectorAll('[data-lang-key]');
+            elementsToTranslate.forEach(element => {
+                const key = element.getAttribute('data-lang-key');
+                if (translations[lang][key]) {
+                    element.innerText = translations[lang][key];
+                }
+            });
+
+            // Translate Titles (containing spans)
+            document.getElementById('activeProductsTitle').innerHTML = translations[lang].activeProductsHtml;
+            document.getElementById('satisfactionTitle').innerHTML = translations[lang].satisfactionHtml;
+            document.getElementById('faqTitle').innerHTML = translations[lang].faqHtml;
+
+            // Re-populate pricing dropdowns with new language names
+            populateDropdowns();
+        }
+
+        // Close dropdown when clicking outside
+        window.onclick = function(event) {
+            if (!event.target.matches('.lang-btn') && !event.target.matches('.lang-btn *')) {
+                document.getElementById('langDropdown').classList.remove('active');
+            }
+        }
+
+        // Dynamic pricing display updater
+        function updatePrice(selectElement, displayId) {
+            const selectedValue = selectElement.value;
+            const selectedOption = selectElement.options[selectElement.selectedIndex];
+            if (!selectedOption) return;
+            const period = selectedOption.getAttribute('data-period');
+            
+            const displayElement = document.getElementById(displayId);
+            displayElement.innerHTML = `${selectedValue} <span class="price-period">${period}</span>`;
+        }
+
+        // FAQ Accordion Interaction
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            const answer = item.querySelector('.faq-answer');
+            const icon = question.querySelector('i');
+
+            question.addEventListener('click', () => {
+                const isOpen = answer.style.maxHeight && answer.style.maxHeight !== '0px';
+                
+                // Close other open answers
+                faqItems.forEach(otherItem => {
+                    otherItem.querySelector('.faq-answer').style.maxHeight = '0px';
+                    otherItem.querySelector('.faq-question i').className = 'fa-solid fa-plus';
+                    otherItem.querySelector('.faq-answer').style.padding = '0 1.2rem';
+                });
+
+                if (!isOpen) {
+                    answer.style.maxHeight = answer.scrollHeight + 32 + 'px'; // dynamic height padding
+                    answer.style.padding = '1.2rem';
+                    icon.className = 'fa-solid fa-minus';
+                } else {
+                    answer.style.maxHeight = '0px';
+                    answer.style.padding = '0 1.2rem';
+                    icon.className = 'fa-solid fa-plus';
+                }
+            });
+        });
+
+        // App Initializations
+        populateDropdowns();
+    </script>
+
+</body>
+</html>
